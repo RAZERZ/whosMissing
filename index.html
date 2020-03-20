@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            width: 250px;
+            height: 400px;
+            background: #212121;
+            color: #fff;
+        }
+
+        hr {
+            margin: 10% 0;
+        }
+        
+        h1 {
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        p {
+            text-align: center
+        }
+
+        button {
+            display: block;
+            margin: auto;
+            border: unset;
+            width: 70%;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Who's Missing?</h1>
+
+    <p>Current Status: <span class="status" style="color:red">Not Loaded</span></p>
+    <button class="verifyList" style="height:40px;">getNullIndex()</button>
+
+    <hr>
+
+    <p class="innerText">Let's get started, load a namelist (json)</p>
+    <button></button>
+
+    <hr>
+
+    <p>Want to load directly from SchoolSoft?</p>
+    <button class="schoolsoftBtn" style="margin-top:2%;background: rgba(0,0,0,0);height: 45px">
+        <svg transform="scale(2)" width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill="#fff" fill-rule="evenodd" clip-rule="evenodd">
+            <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+        </svg>
+    </button>
+
+    <script src="index.js"></script>
+
+</body>
+</html>

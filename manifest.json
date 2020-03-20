@@ -1,0 +1,38 @@
+{
+  "name": "whosMissing",
+  "version": "0.1",
+  "description": "Applications include checking who is in a Google Meet meeting through JSON.",
+
+  "permissions": [
+    "storage",
+    "declarativeContent",
+    "activeTab"
+  ],
+
+  "background": {
+    "scripts": [
+      "eventListener.js"
+    ],
+    "persistent": false
+  },
+
+  "icons": {
+    "32": "img/logo/whosMissing.png"
+  },
+
+  "page_action": {
+    "default_popup": "index.html"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.schoolsoft.se/*",
+        "https://meet.google.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ],
+
+  "manifest_version": 2
+}
