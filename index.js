@@ -1,3 +1,7 @@
+Array.prototype.diff = function(a) {
+    return this.filter(function(i) {return a.indexOf(i) < 0;});
+};
+
 let currStatus = document.getElementsByClassName("status")[0];
 
 chrome.storage.sync.get("name", function(result){
@@ -61,15 +65,18 @@ document.getElementsByClassName("verifyList")[0].addEventListener("click", funct
     chrome.tabs.executeScript({
         code: '(' + returnDOM + ')();'
     }, function(meetListArr) {
+        let absentArr = [];
+        let presentArr = [];
         chrome.storage.sync.get("name", function(response) {
-            for(var i = 0; meetListArr.length > i; i++) {
+            for(var i = 0; meetListArr[0].length > i; i++) {
                 for(var j = 0; response.name.length > j; j++) {
-                    if(meetListArr[i][0].includes(response.name[j])) {
-                        console.log("quack");
+                    if(meetListArr[0][i].includes(response.name[j])) {
+                        presentArr.push(response.name[j]);
                     }
                 }
             }
+            absentArr = response.name.diff(presentArr);
+            console.log(absentArr);
         });
     });
-    //TODO: document.body.children[1].children[2].children[0].children[0].children[2].children[2].children[2].children[0].children[1].children[0].children[1].children[0].children[1].children[0].children[0].children[0].children[1].children[0].children[0] from meets.google.com
 });
