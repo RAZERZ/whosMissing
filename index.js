@@ -111,7 +111,7 @@ navBar[2].addEventListener("click", function() {
 
     for(var i=0;navBar.length>i;i++){navBar[i].removeAttribute("class");}
     navBar[2].setAttribute("class", "active");
-    document.getElementsByClassName("content")[0].innerHTML = '<div class="check"><p>Ready when you are</p><button class="verifyList" style="height:40px;">getNullIndex()</button><ul class="absentList"></ul></div>';
+    document.getElementsByClassName("content")[0].innerHTML = '<div class="check"><p style="font-size:1.2em">Ready when you are</p><button class="verifyList" style="height:40px;">Start</button><ul class="absentList"></ul></div>';
 
     document.getElementsByClassName("verifyList")[0].addEventListener("click", function() {
         setInterval(function(){
