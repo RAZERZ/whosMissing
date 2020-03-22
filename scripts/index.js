@@ -165,7 +165,7 @@ navBar[2].addEventListener("click", function() {
                     }
                 });
             });
-        }, 100);
+        }, 500);
     });
 });
 
