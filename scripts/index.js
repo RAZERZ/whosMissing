@@ -127,10 +127,14 @@ navBar[2].addEventListener("click", function() {
         setInterval(function(){
             function returnDOM() {
                 let meetList = document.querySelectorAll('[data-sort-key]');
-                let openMeetList = document.querySelectorAll('[aria-disabled="false"]')[3];
+                let openMenuBtn = document.querySelectorAll('[aria-disabled="false"]');
 
-                if (!meetList.length) {
-                    openMeetList.click();
+                if (meetList.length == 0) {
+                    for(var i = 0; openMenuBtn.length > i; i++) {
+                        if(openMenuBtn[i].innerText == 3) {
+                            openMenuBtn[i].click();
+                        }
+                    }
                 } else {
                     let arr = [];
                     for (var i = 0; document.querySelectorAll('[data-sort-key]').length > i; i++) {
@@ -138,7 +142,6 @@ navBar[2].addEventListener("click", function() {
                     }
                     return arr;
                 }
-
             }
 
             chrome.tabs.executeScript({
@@ -164,6 +167,7 @@ navBar[2].addEventListener("click", function() {
                         absentList.appendChild(li);
                     }
                 });
+                console.log(absentArr);
             });
         }, 500);
     });
