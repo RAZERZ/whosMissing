@@ -2,6 +2,41 @@ Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
 
+let navBar = document.getElementsByClassName("navBar")[0].children;
+
+navBar[0].addEventListener("click", function() {
+    document.getElementsByClassName("import")[0].removeAttribute("style");
+    navBar[1].removeAttribute("class");
+    document.getElementsByClassName("check")[0].removeAttribute("style");
+    navBar[2].removeAttribute("class");
+    navBar[0].setAttribute("class", "active");
+    document.getElementsByClassName("create")[0].setAttribute("style", "height:100%;opacity:1;visibility:visible");
+});
+
+navBar[1].addEventListener("click", function() {
+    document.getElementsByClassName("create")[0].removeAttribute("style");
+    navBar[0].removeAttribute("class");
+    document.getElementsByClassName("check")[0].removeAttribute("style");
+    navBar[2].removeAttribute("class");
+    navBar[1].setAttribute("class", "active");
+    document.getElementsByClassName("import")[0].setAttribute("style", "height:100%;opacity:1;visibility:visible");
+});
+
+navBar[2].addEventListener("click", function() {
+    document.getElementsByClassName("import")[0].removeAttribute("style");
+    navBar[0].removeAttribute("class");
+    document.getElementsByClassName("create")[0].removeAttribute("style");
+    navBar[1].removeAttribute("class");
+    navBar[2].setAttribute("class", "active");
+    document.getElementsByClassName("check")[0].setAttribute("style", "height:100%;opacity:1;visibility:visible");
+});
+
+function setContent(elem) {
+    let elemElem = document.getElementsByClassName(elem)[0];
+
+    elemElem.style.opacity = "1";
+}
+
 let currStatus = document.getElementsByClassName("status")[0];
 
 chrome.storage.sync.get("name", function(result){
@@ -46,6 +81,24 @@ document.getElementsByClassName("schoolsoftBtn")[0].addEventListener("click", fu
         }
     });
 });
+
+// select the target node
+var target = document.querySelectorAll('[data-is-expanded]')[0];
+
+// create an observer instance
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        console.log(mutation.type);
+    });
+});
+
+// configuration of the observer:
+var config = { attributes: true, childList: true, characterData: true }
+
+// pass in the target node, as well as the observer options
+observer.observe(target, config);
+
+// later, you can stop observing
 
 document.getElementsByClassName("verifyList")[0].addEventListener("click", function() {
 
