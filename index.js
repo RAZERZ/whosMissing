@@ -14,8 +14,9 @@ navBar[0].addEventListener("click", function() {
     let userLabel = document.getElementsByTagName("input")[0];
 
     downloadBtn.setAttribute("target", "_blank");
+    downloadBtn.setAttribute("download", "mommyHelpIcantNameThings.json");
     userLabel.addEventListener("input", function() {
-        downloadBtn.setAttribute("download", userLabel.value + ".json"); //TODO: If value is empty, add a default name
+        downloadBtn.setAttribute("download", userLabel.value + ".json");
     });
 
     chrome.storage.sync.get("name", function(r) {
