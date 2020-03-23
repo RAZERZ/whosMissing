@@ -138,6 +138,9 @@ navBar[2].addEventListener("click", function() {
                 } else {
                     let arr = [];
                     for (var i = 0; document.querySelectorAll('[data-sort-key]').length > i; i++) {
+                        document.querySelectorAll('[data-sort-key]')[0].parentElement.parentElement.parentElement.scrollTop = 0;
+                        arr.push(document.querySelectorAll('[data-sort-key]')[i].innerText);
+                        document.querySelectorAll('[data-sort-key]')[0].parentElement.parentElement.parentElement.scrollTop = document.querySelectorAll('[data-sort-key]')[0].parentElement.parentElement.parentElement.offsetHeight;
                         arr.push(document.querySelectorAll('[data-sort-key]')[i].innerText);
                     }
                     return arr;
@@ -167,7 +170,7 @@ navBar[2].addEventListener("click", function() {
                         absentList.appendChild(li);
                     }
                 });
-                console.log(absentArr);
+                //console.log(absentArr);
             });
         }, 500);
     });
