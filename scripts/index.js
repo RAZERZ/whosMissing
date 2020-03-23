@@ -131,7 +131,7 @@ navBar[2].addEventListener("click", function() {
 
                 if (meetList.length == 0) {
                     for(var i = 0; openMenuBtn.length > i; i++) {
-                        if(openMenuBtn[i].innerText == 3) {
+                        if(Number.isInteger(parseInt(openMenuBtn[i].innerText))) {
                             openMenuBtn[i].click();
                         }
                     }
