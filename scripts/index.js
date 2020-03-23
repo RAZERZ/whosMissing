@@ -18,7 +18,7 @@ navBar[0].addEventListener("click", function() {
 
     for(var i=0;navBar.length>i;i++){navBar[i].removeAttribute("class");}
     navBar[0].setAttribute("class", "active");
-    document.getElementsByClassName("content")[0].innerHTML = '<div class="create"><p>Want to create a custom namelist?</p><p>This extension reads JSON objects, but you can always create one using <a href="https://razerz.github.io" target="_blank">my generator.</a></p><p>When you' + "'" + 're ready, click "import" to import your namelist.</p><hr><p>Psst, you can also export the currently loaded namelist. Give it a name and hit export.</p><input type="text"><br><a style="text-decoration:none" class="download">Export</a></div>';
+    document.getElementsByClassName("content")[0].innerHTML = '<div class="create"><p>Want to create a custom namelist?</p><p>This extension reads JSON objects, but you can always create one using <a href="https://razerz.github.io/hostedProjects/whosMissing" target="_blank">my generator.</a></p><p>When you' + "'" + 're ready, click "import" to import your namelist.</p><hr><p>Psst, you can also export the currently loaded namelist. Give it a name and hit export.</p><input type="text"><br><a style="text-decoration:none" class="download">Export</a></div>';
 
     let downloadBtn = document.getElementsByClassName("download")[0];
     let userLabel = document.getElementsByTagName("input")[0];
