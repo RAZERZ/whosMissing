@@ -140,6 +140,7 @@ navBar[2].addEventListener("click", function() {
             function returnDOM() {
                 let meetList = document.querySelectorAll('[data-sort-key]');
                 let openMenuBtn = document.querySelectorAll('[aria-disabled="false"]');
+                let arr = [];
 
                 if (meetList.length == 0) {
                     for(var i = 0; openMenuBtn.length > i; i++) {
@@ -148,13 +149,17 @@ navBar[2].addEventListener("click", function() {
                         }
                     }
                 } else {
-                    let arr = [];
-                    let scrollOffsetHeight = 0;
-                    for (var i = 0; document.querySelectorAll('[data-sort-key]').length > i; i++) {
-                        arr.push(document.querySelectorAll('[data-sort-key]')[i].innerText);
-                        scrollOffsetHeight +=  document.querySelectorAll('[data-sort-key]')[0].offsetHeight;
-                        document.querySelectorAll('[data-sort-key]')[0].parentElement.parentElement.parentElement.scrollTop = scrollOffsetHeight;
+                    setTimeout(function(){document.querySelectorAll("[role=presentation]")[0].parentElement.parentElement.scrollTop = 0}, 100);
+                    for (var i = 0; document.querySelectorAll("[role=presentation]").length > i; i++) {
+                        arr.push(document.querySelectorAll("[role=presentation]")[i].innerText);
                     }
+
+                    document.querySelectorAll("[role=presentation]")[document.querySelectorAll("[role=presentation]").length -1].scrollIntoView();
+                    setTimeout(function() {
+                        for (var i = 0; document.querySelectorAll("[role=presentation]").length > i; i++) {
+                            arr.push(document.querySelectorAll("[role=presentation]")[i].innerText);
+                        }
+                    }, 100);
                     return arr;
                 }
             }
@@ -162,6 +167,7 @@ navBar[2].addEventListener("click", function() {
             chrome.tabs.executeScript({
                 code: '(' + returnDOM + ')();'
             }, function(meetListArr) {
+                console.log(meetListArr);
                 let absentArr = [];
                 let presentArr = [];
                 chrome.storage.sync.get("name", function(response) {
@@ -184,7 +190,7 @@ navBar[2].addEventListener("click", function() {
                 });
                 //console.log(absentArr);
             });
-        }, 500);
+        }, 1000);
     });
 });
 
