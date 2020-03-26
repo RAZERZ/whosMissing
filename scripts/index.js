@@ -149,19 +149,23 @@ navBar[2].addEventListener("click", function() {
                         }
                     }
                 } else {
-                    setTimeout(function(){document.querySelectorAll("[role=presentation]")[0].parentElement.parentElement.scrollTop = 0}, 100);
+                    document.querySelectorAll("[role=presentation]")[0].parentElement.parentElement.scrollTop = 0;
                     for (var i = 0; document.querySelectorAll("[role=presentation]").length > i; i++) {
                         arr.push(document.querySelectorAll("[role=presentation]")[i].innerText);
                     }
-
-                    document.querySelectorAll("[role=presentation]")[document.querySelectorAll("[role=presentation]").length -1].scrollIntoView();
-                    setTimeout(function() {
+                    setTimeout(function () {
+                        document.querySelectorAll("[role=presentation]")[document.querySelectorAll("[role=presentation]").length - 1].scrollIntoView()
+                    }, 150);
+                    setTimeout(function () {
                         for (var i = 0; document.querySelectorAll("[role=presentation]").length > i; i++) {
                             arr.push(document.querySelectorAll("[role=presentation]")[i].innerText);
                         }
-                    }, 100);
-                    return arr;
+                    }, 200);
+
                 }
+                let setTime = new Date().getTime() + 250;
+                while(new Date().getTime() < setTime){}
+                return arr;
             }
 
             chrome.tabs.executeScript({
@@ -190,7 +194,7 @@ navBar[2].addEventListener("click", function() {
                 });
                 //console.log(absentArr);
             });
-        }, 1000);
+        }, 2000);
     });
 });
 
