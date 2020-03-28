@@ -1,6 +1,6 @@
 {
   "name": "whosMissing",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "Applications include checking who is in a Google Meet meeting through JSON.",
 
   "permissions": [

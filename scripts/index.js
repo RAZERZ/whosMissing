@@ -137,7 +137,7 @@ navBar[2].addEventListener("click", function() {
 
     document.getElementsByClassName("verifyList")[0].addEventListener("click", function() {
         setInterval(function(){
-            function returnDOM() {
+            async function returnDOM() {
                 let meetList = document.querySelectorAll('[data-sort-key]');
                 let openMenuBtn = document.querySelectorAll('[aria-disabled="false"]');
                 let arr = [];
@@ -149,35 +149,42 @@ navBar[2].addEventListener("click", function() {
                         }
                     }
                 } else {
-                    document.querySelectorAll("[role=presentation]")[0].parentElement.parentElement.scrollTop = 0;
-                    for (var i = 0; document.querySelectorAll("[role=presentation]").length > i; i++) {
-                        arr.push(document.querySelectorAll("[role=presentation]")[i].innerText);
-                    }
-                    setTimeout(function () {
-                        document.querySelectorAll("[role=presentation]")[document.querySelectorAll("[role=presentation]").length - 1].scrollIntoView()
-                    }, 150);
-                    setTimeout(function () {
+                    setTimeout(() => {document.querySelectorAll("[role=presentation]")[0].parentElement.parentElement.scrollTop = 0}, 50);
+                    setTimeout(() => {
+                        for (var i = 0; document.querySelectorAll("[role=presentation]").length > i; i++) {
+                            arr.push(document.querySelectorAll("[role=presentation]")[i].innerText);
+                        }
+                    }, 100);
+                    setTimeout(() => {document.querySelectorAll("[role=presentation]")[document.querySelectorAll("[role=presentation]").length - 1].scrollIntoView()}, 150);
+                    setTimeout(() => {
                         for (var i = 0; document.querySelectorAll("[role=presentation]").length > i; i++) {
                             arr.push(document.querySelectorAll("[role=presentation]")[i].innerText);
                         }
                     }, 200);
 
+                    setTimeout(() => {chrome.runtime.sendMessage(arr);},250);
+
                 }
-                let setTime = new Date().getTime() + 250;
-                while(new Date().getTime() < setTime){}
-                return arr;
             }
 
             chrome.tabs.executeScript({
                 code: '(' + returnDOM + ')();'
-            }, function(meetListArr) {
-                console.log(meetListArr);
+            }, async emptyPromise => {
+                const message = new Promise(resolve => {
+                    const listener = request => {
+                        chrome.runtime.onMessage.removeListener(listener);
+                        resolve(request);
+                    };
+                    chrome.runtime.onMessage.addListener(listener);
+                });
+                const meetListArr = await message;
+
                 let absentArr = [];
                 let presentArr = [];
                 chrome.storage.sync.get("name", function(response) {
-                    for(var i = 0; meetListArr[0].length > i; i++) {
+                    for(var i = 0; meetListArr.length > i; i++) {
                         for(var j = 0; response.name.length > j; j++) {
-                            if(meetListArr[0][i].includes(response.name[j])) {
+                            if(meetListArr[i].includes(response.name[j])) {
                                 presentArr.push(response.name[j]);
                             }
                         }
@@ -192,7 +199,6 @@ navBar[2].addEventListener("click", function() {
                         absentList.appendChild(li);
                     }
                 });
-                //console.log(absentArr);
             });
         }, 2000);
     });
