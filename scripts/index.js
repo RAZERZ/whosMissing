@@ -135,7 +135,17 @@ navBar[2].addEventListener("click", function() {
     navBar[2].setAttribute("class", "active");
     document.getElementsByClassName("content")[0].innerHTML = '<div class="check"><p style="font-size:1.2em">Ready when you are</p><button class="verifyList" style="height:40px;">Start</button><ul class="absentList"></ul></div>';
 
-    document.getElementsByClassName("verifyList")[0].addEventListener("click", function() {
+    let checkerBtn = document.getElementsByClassName("verifyList")[0];
+
+    checkerBtn.addEventListener("click", function() {
+
+        let checkHeader = document.getElementsByTagName("p")[0];
+
+        //Initial styling
+        checkerBtn.setAttribute("style", "height:40px; background: #34e234");
+        checkerBtn.innerHTML = '<div class="dotLoading"><span class="dotLoading a">.</span><span class="dotLoading b">.</span><span class="dotLoading c">.</span></div>';
+        checkHeader.innerHTML = "Crunching data...";
+
         setInterval(function(){
             async function returnDOM() {
                 let meetList = document.querySelectorAll('[data-sort-key]');
@@ -170,6 +180,16 @@ navBar[2].addEventListener("click", function() {
             chrome.tabs.executeScript({
                 code: '(' + returnDOM + ')();'
             }, async emptyPromise => {
+                //Begin onresponse
+                let absentList = document.getElementsByClassName("absentList")[0];
+                checkHeader.innerHTML = "Punish these punks!";
+                checkerBtn.setAttribute("style","height:40px; background: #34e234;-webkit-transform: translateX(200%);-moz-transform:translateX(200%);-ms-transform:translateX(200%);-o-transform:translateX(200%);transform:translateX(200%);");
+                setTimeout(() => {
+                    checkerBtn.remove();
+                    checkerBtn.setAttribute("style", "display: none");
+                    absentList.setAttribute("style", "opacity: 1");
+                }, 600);
+
                 const message = new Promise(resolve => {
                     const listener = request => {
                         chrome.runtime.onMessage.removeListener(listener);
@@ -191,7 +211,6 @@ navBar[2].addEventListener("click", function() {
                     }
                     absentArr = response.name.diff(presentArr);
 
-                    let absentList = document.getElementsByClassName("absentList")[0];
                     absentList.innerHTML = "";
                     for(let i = 0; absentArr.length > i; i++) {
                         let li = document.createElement("li");
